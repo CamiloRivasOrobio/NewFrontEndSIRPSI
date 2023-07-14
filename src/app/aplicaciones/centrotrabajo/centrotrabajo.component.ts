@@ -18,7 +18,8 @@ export class CentrotrabajoComponent implements OnInit {
   }
 
   obtenerCentrosTrabajo() {  
-    this._centroTrabajo.getCentroTrabajo().subscribe(data => {
+    var id = localStorage.getItem("id")?.toString();
+    this._centroTrabajo.getCentroTrabajoUsuario(id).subscribe(data => {
        
       console.log(data);
       this.listCetroTrabajo = data;
@@ -26,5 +27,4 @@ export class CentrotrabajoComponent implements OnInit {
       console.log(error);
     })
   }
-
 }

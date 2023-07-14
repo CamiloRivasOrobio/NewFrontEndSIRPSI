@@ -13,6 +13,8 @@ import { ToastrService } from "ngx-toastr";
 import { RolService } from "src/services/rol.service";
 import { Usuario } from "src/app/interface";
 import { CentroTrabajoService } from "src/services/centro-trabajo.service";
+import { UsuariosFormComponent } from "./usuarios-form/usuarios-form.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-usuarios",
@@ -68,7 +70,7 @@ export class UsuariosComponent {
   selectEstado: string;
   userName: string = "";
 
-  constructor(public service: TableService, private modalService: NgbModal) {}
+  constructor(public service: TableService, private modalService: NgbModal, public dialog: MatDialog) {}
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -242,9 +244,10 @@ export class UsuariosComponent {
     });
   }
   onSeletedItem(item) {
-    console.log(item);
+    this.listCetroTrabajo = [];
     this.userName = item.userName;
-    this._centroTrabajo.getCentroTrabajo(item.idConsecutivo).subscribe(
+    this.id = item.id;
+    this._centroTrabajo.getCentroTrabajoUsuario(item.id).subscribe(
       (data) => {
         console.log(data);
         this.listCetroTrabajo = data;
@@ -255,9 +258,9 @@ export class UsuariosComponent {
     );
   }
   openFormDialog() {
-    // const dialogRef = this.dialog.open(CentrotrabajoFormComponent, {
-    //   data: { id: this.form.value.IdEmpresa },
-    // });
-    // dialogRef.afterClosed().subscribe();
+    const dialogRef = this.dialog.open(UsuariosFormComponent, {
+      data: { id: this.id },
+    });
+    dialogRef.afterClosed().subscribe();
   }
 }

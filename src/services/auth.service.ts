@@ -25,10 +25,11 @@ export class AuthService {
 
   constructor() {}
 
-  private setAuthentication(user: User, token: string, role: string): boolean {
+  private setAuthentication(user: User, token: string, role: string, id: string): boolean {
     this._currentUser.set(user);
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
+    localStorage.setItem("id", id);
     this._authStatus.set(AuthStatus.autheticated);
     localStorage.getItem("token");
     console.log({ user, token });
@@ -40,7 +41,7 @@ export class AuthService {
     const body = { nit, document, password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      map(({ user, token, roleId }) => this.setAuthentication(user, token, roleId)),
+      map(({ user, token, roleId, id }) => this.setAuthentication(user, token, roleId, id)),
       // tap( ({user, token}) => {
       //     this._currentUser.set(user);
       //     this._authStatus.set(AuthStatus.autheticated);

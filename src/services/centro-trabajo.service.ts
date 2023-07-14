@@ -24,7 +24,36 @@ export class CentroTrabajoService {
     return this.http.get(urlGetCentroTrabajo, { headers });
   }
   saveCentroTrabajo(body: any): Observable<any> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer  ${localStorage.getItem("token")}`);
-    return this.http.post(`${this.baseUrl}/centrotrabajo/RegistrarCentroDeTrabajo`, body, { headers });
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Bearer  ${localStorage.getItem("token")}`
+    );
+    return this.http.post(
+      `${this.baseUrl}/centrotrabajo/RegistrarCentroDeTrabajo`,
+      body,
+      { headers }
+    );
+  }
+  getCentroTrabajoUsuario(user?: string): Observable<any> {
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Bearer  ${localStorage.getItem("token")}`
+    );
+    return this.http.get(
+      `${this.baseUrl}/userWorkPlace/ConsultarCentroDeTrabajoUsuario?user=` +
+        user,
+      { headers }
+    );
+  }
+  saveCentroTrabajoUsuario(body: any): Observable<any> {
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Bearer  ${localStorage.getItem("token")}`
+    );
+    return this.http.post(
+      `${this.baseUrl}/userWorkPlace/RegistrarCentroDeTrabajoUsuario`,
+      body,
+      { headers }
+    );
   }
 }

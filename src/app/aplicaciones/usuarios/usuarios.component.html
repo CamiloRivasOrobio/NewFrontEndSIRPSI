@@ -83,20 +83,16 @@
                         <th scope="col">Descripción</th>
                         <th scope="col">Empresa</th>
                         <th scope="col">Estado</th>
-                        <th scope="col" colspan="3">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-
-                    <tr *ngFor="let item of listCetroTrabajo; let i = index">
+        
+                    <tr *ngFor="let item of listCetroTrabajo.workplaces; let i = index">
                         <th scope="row">{{ i+1 }}</th>
                         <td scope="row">{{item.nombre}}</td>
                         <td> {{item.descripcion}}</td>
                         <td> {{item.idEmpresa}} </td>
                         <td> {{item.idEstado}}</td>
-                        <td><i class="icofont icofont-ui-edit text-info"></i>
-                        </td>
-                        <td><i (click)="onDelete(item.id)" class="icofont icofont-ui-delete text-danger"></i></td>
                     </tr>
                 </tbody>
             </table>
