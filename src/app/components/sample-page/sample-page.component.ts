@@ -62,7 +62,7 @@ export class SamplePageComponent implements OnInit {
 
       empresa.id = this.id;
       // Editamos empresa
-      this._EmpresaService.updateEmpresa(this.id,empresa).subscribe(data => {
+      this._EmpresaService.updateEmpresa(empresa).subscribe(data => {
         this.form.reset();
 
         this.id = undefined;

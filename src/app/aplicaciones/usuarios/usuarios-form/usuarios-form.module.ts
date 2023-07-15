@@ -1,8 +1,5 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-
-import { AplicacionesRoutingModule } from "./aplicaciones-routing.module";
-import { UsuariosComponent } from "./usuarios/usuarios.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { HttpClientModule } from "@angular/common/http";
@@ -13,14 +10,12 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDialogModule } from "@angular/material/dialog";
-import { UsuariosCentroCostoFormComponent } from "./usuarios/usuario-centro-costo-form/usuario-centro-costo-form.component";
-import { UsuariosFormModule } from "./usuarios/usuarios-form/usuarios-form.module";
+import { UsuariosFormComponent } from "./usuarios-form.component";
 
 @NgModule({
-  declarations: [UsuariosComponent, UsuariosCentroCostoFormComponent],
+  declarations: [UsuariosFormComponent],
   imports: [
     CommonModule,
-    AplicacionesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -35,7 +30,6 @@ import { UsuariosFormModule } from "./usuarios/usuarios-form/usuarios-form.modul
     MatCheckboxModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    UsuariosFormModule
   ],
 })
-export class AplicacionesModule {}
+export class UsuariosFormModule {}

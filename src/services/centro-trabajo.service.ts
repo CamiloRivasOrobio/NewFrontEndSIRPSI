@@ -56,4 +56,15 @@ export class CentroTrabajoService {
       { headers }
     );
   }
+  updateCentroTrabajo(body: any): Observable<any> {
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Bearer  ${localStorage.getItem("token")}`
+    );
+    return this.http.put(
+      `${this.baseUrl}/centrotrabajo/ActualizarCentroDeTrabajo`,
+      body,
+      { headers }
+    );
+  }
 }

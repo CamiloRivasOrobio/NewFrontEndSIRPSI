@@ -1,8 +1,16 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
-            <div class="card-header">
-                <h5>Listado de empresas</h5>
+            <div class="card-header row">
+                <div class="col-md-9">
+                    <h5>Listado de empresas</h5>
+                </div>
+                <div class="col-md-3"><a type="button" style="float:right" class="btn btn-dark"
+                        (click)="onOpenModalSave(content)">
+                        Registrar empresa
+                        <i class="fa fa-save"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -19,8 +27,9 @@
                 <th scope="col">Tipo empresa</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Ministerio</th>
+                <th scope="col">Administrador</th>
                 <th scope="col">Estado</th>
-                <th scope="col" colspan="4">Acciones</th>
+                <th scope="col" colspan="6">Acciones</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -33,8 +42,10 @@
                 <td> {{item.tipoEmpNombre}}</td>
                 <td> {{item.nombre}}</td>
                 <td> {{item.ministerioNombre}} </td>
+                <td> {{item.usuario != null ? (item.usuario.names+ " " +item.usuario.surnames) : ""}} </td>
                 <td> {{item.estadoNombre}}</td>
-                <td><i (click)="onOpenModalSave(content)" class="fa fa-save"></i></td>
+                <td><i (click)="onAssignAdmin(item, 0)" class="fa fa-user"></i></td>
+                <!-- <td><i (click)="onOpenModalSave(content)" class="fa fa-save"></i></td> -->
                 <td><i (click)="onOpenModalUpdate(Actualizar)" class="icofont icofont-ui-edit text-info"></i></td>
                 <td><i (click)="onDelete(item.id)" class="icofont icofont-ui-delete text-danger"></i></td>
                 <td><i (click)="onSeletedItem(item)" class="fa fa-arrow-right"></i></td>
@@ -71,7 +82,8 @@
                     <th scope="col">Descripción</th>
                     <th scope="col">Empresa</th>
                     <th scope="col">Estado</th>
-                    <th scope="col" colspan="3">Acciones</th>
+                    <th scope="col">Psicologo</th>
+                    <th scope="col" colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -80,9 +92,11 @@
                     <th scope="row">{{ i+1 }}</th>
                     <td scope="row">{{item.nombre}}</td>
                     <td> {{item.descripcion}}</td>
-                    <td> {{item.idEmpresa}} </td>
-                    <td> {{item.idEstado}}</td>
-                    <td><i (click)="onOpenModalUpdate(Actualizar)" class="icofont icofont-ui-edit text-info"></i></td>
+                    <td> {{item.empresa.nombre}} </td>
+                    <td> {{item.estados.nombre}}</td>
+                    <td> {{item.usuario != null ? (item.usuario.names+ " " +item.usuario.surnames) : ""}} </td>
+                    <td><i (click)="onAssignAdmin(item, 1)" class="fa fa-user"></i></td>
+                    <!-- <td><i (click)="onOpenModalUpdate(Actualizar)" class="icofont icofont-ui-edit text-info"></i></td> -->
                     <td><i (click)="onDelete(item.id)" class="icofont icofont-ui-delete text-danger"></i></td>
                 </tr>
             </tbody>

@@ -51,11 +51,15 @@ export class EmpresaService {
     return this.http.post(urlSaveEmpresa, empresa, { headers });
   }
 
-  updateEmpresa(id: string, empresa: any): Observable<any> {
-    const urlUpdateEmpresa = `${this.baseUrl}/empresas/EliminarEmpresa`;
-    const token = localStorage.getItem("token");
-
-    const headers = new HttpHeaders().set("Authorization", `Bearer  ${token}`);
-    return this.http.post(urlUpdateEmpresa, { headers });
+  updateEmpresa(empresa: Empresa): Observable<any> {
+    const headers = new HttpHeaders().set(
+      "Authorization",
+      `Bearer  ${localStorage.getItem("token")}`
+    );
+    return this.http.put(
+      `${this.baseUrl}/empresas/ActualizarEmpresa`,
+      empresa,
+      { headers }
+    );
   }
 }

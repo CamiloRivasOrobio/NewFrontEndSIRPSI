@@ -13,8 +13,9 @@ import { ToastrService } from "ngx-toastr";
 import { RolService } from "src/services/rol.service";
 import { Usuario } from "src/app/interface";
 import { CentroTrabajoService } from "src/services/centro-trabajo.service";
-import { UsuariosFormComponent } from "./usuarios-form/usuarios-form.component";
 import { MatDialog } from "@angular/material/dialog";
+import { UsuariosCentroCostoFormComponent } from "./usuario-centro-costo-form/usuario-centro-costo-form.component";
+import { UsuariosFormComponent } from "./usuarios-form/usuarios-form.component";
 
 @Component({
   selector: "app-usuarios",
@@ -70,7 +71,11 @@ export class UsuariosComponent {
   selectEstado: string;
   userName: string = "";
 
-  constructor(public service: TableService, private modalService: NgbModal, public dialog: MatDialog) {}
+  constructor(
+    public service: TableService,
+    private modalService: NgbModal,
+    public dialog: MatDialog
+  ) {}
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -258,8 +263,14 @@ export class UsuariosComponent {
     );
   }
   openFormDialog() {
-    const dialogRef = this.dialog.open(UsuariosFormComponent, {
+    const dialogRef = this.dialog.open(UsuariosCentroCostoFormComponent, {
       data: { id: this.id },
+    });
+    dialogRef.afterClosed().subscribe();
+  }
+  openFormDialogUser() {
+    const dialogRef = this.dialog.open(UsuariosFormComponent, {
+      data: { id: this.id, type: 0, reload: true },
     });
     dialogRef.afterClosed().subscribe();
   }

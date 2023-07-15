@@ -17,6 +17,7 @@ import { content } from "../../shared/routes/content-routes";
 import { CentroTrabajoService } from "src/services/centro-trabajo.service";
 import { CentrotrabajoFormComponent } from "../centrotrabajo/centrotrabajo-form/centrotrabajo-form.component";
 import { MatDialog } from "@angular/material/dialog";
+import { UsuariosFormComponent } from "../usuarios/usuarios-form/usuarios-form.component";
 
 @Component({
   selector: "app-empresas",
@@ -54,6 +55,7 @@ export class EmpresasComponent implements OnInit {
     Observacion: "",
     IdMinisterio: "",
     idEstado: "",
+    IdUsuario: null,
   };
   toastr: any;
   errorMessage: any;
@@ -128,7 +130,7 @@ export class EmpresasComponent implements OnInit {
   obtenerEmpresas() {
     this._empresaService.getEmpresas().subscribe(
       (data) => {
-        console.log(data);
+        console.log(data[0].usuario.names);
         this.listEmpresas = data;
       },
       (error) => {
@@ -218,22 +220,10 @@ export class EmpresasComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe();
   }
-  // onSaveCentroTrabajo() {
-  //   console.log(this.form.value);
-  //   this._centroTrabajo.saveCentroTrabajo(this.form.value).subscribe({
-  //     next: (data) => {
-  //       console.log(data);
-  //       this.obtenerEmpresas();
-  //       this.listCetroTrabajo = null;
-  //       this.toastr.success("Usuario Registrado, exitosamente!");
-  //     },
-  //     error: (error) => {
-  //       this.errorMessage = error.error.message;
-  //       console.log("error usuario" + error.error.message);
-  //       this.toastr.error("Ha ocurrido un error! " + this.errorMessage);
-  //       this.obtenerEmpresas();
-  //       this.listCetroTrabajo = null;
-  //     },
-  //   });
-  // }
+  onAssignAdmin(item: any, table: number = 0) {
+    const dialogRef = this.dialog.open(UsuariosFormComponent, {
+      data: { id: 0, type: 1, item: item, reload: true, table: table },
+    });
+    dialogRef.afterClosed().subscribe();
+  }
 }
