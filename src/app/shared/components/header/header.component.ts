@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
 
   private router = inject( Router );
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
 
   constructor(
     public navServices: NavService,
