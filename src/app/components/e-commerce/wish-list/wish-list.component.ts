@@ -7,7 +7,7 @@ import { ProductsService } from 'src/app/shared/services/e-commerce/products.ser
 
 @Component({
   selector: 'app-wish-list',
-  templateUrl: './wish-list.component.html',
+  templateUrl: 'wish-list.component.html',
   styleUrls: ['./wish-list.component.scss']
 })
 export class WishListComponent implements OnInit {

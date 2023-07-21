@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 export class AuthService {
   private readonly baseUrl: string = environment.baseUrl;
   private http = inject(HttpClient);
-  private _currentUser = signal<User | null>(null);
+  private _currentUser = signal<LoginResponse | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
   public currentUser = computed(() => this._currentUser());
   public authStatus = computed(() => this._authStatus());
@@ -39,7 +39,7 @@ export class AuthService {
     role: string,
     id: string
   ): boolean {
-    this._currentUser.set(user);
+    // this._currentUser.set(user);
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
     localStorage.setItem("id", id);
@@ -71,10 +71,6 @@ export class AuthService {
       return of(true);
     }
   }
-
-  // logout() {
-  //   localStorage.removeItem("token");
-  // }
   public login(
     nit: string,
     document: string,
@@ -85,7 +81,7 @@ export class AuthService {
       .post<LoginResponse>(environment.baseUrl + "/user/Login", body)
       .pipe(
         map((res) => {
-          const user = ({ user, token, roleId, id }) => res;
+          const user = ({ user, token, roleId, id, roleName }) => res;
           this.CreateUserSession(res);
           return res;
         }),
@@ -95,12 +91,15 @@ export class AuthService {
         })
       );
   }
-  public CreateUserSession(auth: any, ) {
+  public CreateUserSession(auth: LoginResponse) {
     localStorage.setItem("user", JSON.stringify(auth));
     localStorage.setItem("token", auth.token);
-    localStorage.setItem("role", auth.role);
+    localStorage.setItem("role", auth.roleId);
+    localStorage.setItem("roleName", auth.roleName);
     localStorage.setItem("id", auth.id);
     this.userSubject.next(auth);
+    this._currentUser.set(auth);
+    this._authStatus.set(AuthStatus.autheticated);
     Swal.fire({
       icon: "success",
       title: "Se ha iniciado sesión correctamente.",
@@ -112,8 +111,10 @@ export class AuthService {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("roleName");
     localStorage.removeItem("id");
     this.userSubject.next(null);
+    this._authStatus.set(AuthStatus.notAuthenticated);
     // this.ValidateSesion();
     // window.location.reload();
   }
